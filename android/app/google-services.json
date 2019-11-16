@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1054997865656",
+    "firebase_url": "https://appventon-registro.firebaseio.com",
+    "project_id": "appventon-registro",
+    "storage_bucket": "appventon-registro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054997865656:android:dfb411d97dec9b1656804d",
+        "android_client_info": {
+          "package_name": "com.develop.appventon.appventon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054997865656-mcchr4kvvfaesadljomjju3tmn1pdvke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAItuSWNSsXafE7l3e5mcdFv_aHn2bIa-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1054997865656-mcchr4kvvfaesadljomjju3tmn1pdvke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
