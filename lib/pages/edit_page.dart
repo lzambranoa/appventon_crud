@@ -32,6 +32,7 @@ class _EditPageState extends State<EditPage> {
          children: <Widget>[
            _createName(),
            _createPhone(),
+           SizedBox(height: 20.0,),
            _createBottom()
          ],
         ),
@@ -40,21 +41,27 @@ class _EditPageState extends State<EditPage> {
   }
 
  Widget _createName() {
-   return TextFormField(
-     initialValue: user.name,
-     decoration: InputDecoration( 
-       labelText: 'name'
+   return Container(
+     padding: EdgeInsets.symmetric(horizontal: 30.0),
+     child: TextFormField(
+       initialValue: user.name,
+       decoration: InputDecoration( 
+         labelText: 'name'
+       ),
+       onSaved: (value) => user.name = value,
      ),
-     onSaved: (value) => user.name = value,
    );
  }
 
   _createPhone() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: 'phone'
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: 'phone'
+        ),
+        onSaved: (value) => user.phone = int.parse(value), 
       ),
-      onSaved: (value) => user.phone = int.parse(value), 
     );
   }
 
