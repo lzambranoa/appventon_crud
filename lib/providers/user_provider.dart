@@ -1,6 +1,7 @@
 import 'package:appventon/models/userModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:appventon/models/carModel.dart';
 
 class UserProvider {
 
@@ -9,10 +10,12 @@ class UserProvider {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
 
-  Future<void> addUser(Users user) async {
+  Future<void> addUser(Users user, Cars cars) async {
       await db.collection("users").add({
+
         'name': user.name,
-        'phone': user.phone
+        'phone': user.phone,
+        'cars': db.document("$Cars/${cars.idCar}"),// Reference
       }).then((documentReference) {
         print(documentReference.documentID);
        // clearForm();
@@ -21,16 +24,13 @@ class UserProvider {
       });
     }
   
-    Future<void> editUser(Users user) async {
-      await db.collection("users").document(user.idUser).updateData({
-        'name': user.name,
-        'phone': user.phone
-      }).then((documentReference) {
-      //  clearForm();
-      }).catchError((e){
-        
-        print(e);
-      });
+    void editUser(Users user) async {
+       DocumentReference ref = db.collection("users").document(user.idUser);
+       return await ref.setData({
+         'idUser': user.idUser,
+         'name': user.name,
+         'phone': user.phone,
+       });
     }
   
     Future<void> deleteUser(Users users) async {

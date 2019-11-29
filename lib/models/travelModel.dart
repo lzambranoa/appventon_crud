@@ -9,7 +9,7 @@ Travels travelsFromJson(String str) => Travels.fromJson(json.decode(str));
 String travelsToJson(Travels data) => json.encode(data.toJson());
 
 class Travels {
-    int idTravel;
+    String idTravel;
     int startPoint;
     int endPoint;
     int places;

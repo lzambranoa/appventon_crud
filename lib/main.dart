@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'appventon',
-      initialRoute: 'solicitar',
+      initialRoute: 'form',
       routes: {
         'form'      : (BuildContext context)  => FormPage(),
         'user'      : (BuildContext context)  => UserPage(),

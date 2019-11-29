@@ -42,6 +42,7 @@ class _SolicitarPageState extends State<SolicitarPage> {
                 _cityDestiny(),
                 _createFecha(context),
                 _createHora(context),
+                SizedBox(height: 20,),
                 _createBoton()
               ],
             ),

@@ -6,7 +6,7 @@ class TravelProvider {
   final db = Firestore.instance;
 
 
-  Future<void> addTravel(Travels travels) async {
+  Future<bool> addTravel(Travels travels) async {
     await db.collection('travels').add({
       'startPoint': travels.startPoint,
       'endPoint': travels.endPoint,
@@ -22,18 +22,32 @@ class TravelProvider {
     }).catchError((e){
       print(e);
     });
+    return true;
   }
 
   Future showTravel(Travels travels) async {
     await db.collection('travels').where(
       'date', isEqualTo: travels.date 
+    ).where(
+      'huor', isEqualTo: travels.huor
+    ).where(
+      'starPoint', isEqualTo: travels.startPoint
+    ).where(
+      'endPoint', isEqualTo: travels.endPoint
     ).getDocuments()
-    .then((documentReference){
-      print(documentReference.documents);
+    .then((querySnapshot){
+      print(querySnapshot.documents);
     }).catchError((e){
       print(e);
+
     });
+    
   }
+
+     Future<void> deleteTravels(Travels travels) async {
+      db.collection("travels").document(travels.idTravel).delete();
+    }
+
 }
 
 

@@ -1,4 +1,5 @@
 import 'package:appventon/models/carModel.dart';
+import 'package:appventon/models/userModel.dart';
 import 'package:appventon/providers/car_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class _CarPageState extends State<CarPage> {
     final carProvider = new CarProvider();
     final db = Firestore.instance;
     Cars car = new Cars();
+    Users user = new Users();
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,7 @@ onSaved: (value) => car.model = int.parse(value),
     print(car.plate);
     print(car.year);
 
-   carProvider.addCar(car);
+   carProvider.addCar(car, user);
 
    Navigator.pushReplacementNamed(context, 'user');
     

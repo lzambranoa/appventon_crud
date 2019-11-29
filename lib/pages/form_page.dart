@@ -1,3 +1,4 @@
+import 'package:appventon/models/carModel.dart';
 import 'package:appventon/models/userModel.dart';
 import 'package:appventon/providers/user_provider.dart';
 //import 'package:appventon/viewmodels/CRUDmodels.dart';
@@ -20,6 +21,7 @@ class _FormPageState extends State<FormPage> {
   final db = Firestore.instance;
 
   Users user = new Users();
+  Cars cars = new Cars();
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +122,7 @@ class _FormPageState extends State<FormPage> {
     print(user.name);
     print(user.phone);
 
-    usuarioProvider.addUser(user);
+    usuarioProvider.addUser(user, cars);
   
 
     Navigator.pushReplacementNamed(context, 'car');

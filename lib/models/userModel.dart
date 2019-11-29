@@ -1,8 +1,10 @@
-import 'dart:convert';
+// import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:appventon/models/carModel.dart';
 
-Users usersFromJson(String str) => Users.fromJson(json.decode(str));
+// Users usersFromJson(String str) => Users.fromJson(json.decode(str));
 
-String usersToJson(Users data) => json.encode(data.toJson());
+// String usersToJson(Users data) => json.encode(data.toJson());
 
 class Users {
     String idUser;
@@ -13,9 +15,10 @@ class Users {
     int passangerRanking;
     bool state;
     String photoUrl;
-    List<dynamic> cars;
+    final List<Cars> cars;
 
     Users({
+        Key key,
         this.idUser,
         this.name,
         this.phone,
@@ -27,27 +30,27 @@ class Users {
         this.cars,
     });
 
-    factory Users.fromJson(Map<String, dynamic> json) => Users(
-        idUser: json["IdUser"],
-        name: json["name"],
-        phone: json["phone"],
-        countryCode: json["countryCode"],
-        diverRanking: json["diverRanking"],
-        passangerRanking: json["passangerRanking"],
-        state: json["state"],
-        photoUrl: json["photoUrl"],
-        cars: List<dynamic>.from(json["cars"].map((x) => x)),
-    );
+    // factory Users.fromJson(Map<String, dynamic> json) => Users(
+    //     idUser: json["IdUser"],
+    //     name: json["name"],
+    //     phone: json["phone"],
+    //     countryCode: json["countryCode"],
+    //     diverRanking: json["diverRanking"],
+    //     passangerRanking: json["passangerRanking"],
+    //     state: json["state"],
+    //     photoUrl: json["photoUrl"],
+    //     cars: List<dynamic>.from(json["cars"].map((x) => x)),
+    // );
 
-    Map<String, dynamic> toJson() => {
-        "IdUser": idUser,
-        "name": name,
-        "phone": phone,
-        "countryCode": countryCode,
-        "diverRanking": diverRanking,
-        "passangerRanking": passangerRanking,
-        "state": state,
-        "photoUrl": photoUrl,
-        "cars": List<dynamic>.from(cars.map((x) => x)),
-    };
+    // Map<String, dynamic> toJson() => {
+    //     "IdUser": idUser,
+    //     "name": name,
+    //     "phone": phone,
+    //     "countryCode": countryCode,
+    //     "diverRanking": diverRanking,
+    //     "passangerRanking": passangerRanking,
+    //     "state": state,
+    //     "photoUrl": photoUrl,
+    //     "cars": List<dynamic>.from(cars.map((x) => x)),
+    // };
 }
