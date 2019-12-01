@@ -10,31 +10,54 @@ class UserProvider {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
 
-  Future<void> addUser(Users user, Cars cars) async {
+  Future<void> addUser(Users user, ) async {
       await db.collection("users").add({
-
+        'idUser': user.idUser,
         'name': user.name,
         'phone': user.phone,
-        'cars': db.document("$Cars/${cars.idCar}"),// Reference
+        'cars': user.cars,  
       }).then((documentReference) {
         print(documentReference.documentID);
-       // clearForm();
       }).catchError((e) {
         print(e);
       });
     }
+
+    Future<void> updateCarData(Cars cars) async {
+      CollectionReference refCars = db.collection("cars");
+
+      await auth.currentUser().then((FirebaseUser user){
+        refCars.add({
+          'brand':  cars.brand,
+          'model': cars.model,
+          'plate': cars.plate,
+          'year': cars.year,
+          'userDriver': db.document("${"users"}/${user.uid}"),
+        }).then((DocumentReference documentReference){
+          documentReference.get().then((DocumentSnapshot snapshot){
+            //Id Cars REFRENCIA ARRAYS
+            DocumentReference refUsers = db.collection("users").document(user.uid);
+            refUsers.updateData({
+              'cars' : FieldValue.arrayUnion([db.document("${"cars"}/${snapshot.documentID}")])
+            });
+          });
+        });
+      });
+    }
   
-    void editUser(Users user) async {
-       DocumentReference ref = db.collection("users").document(user.idUser);
-       return await ref.setData({
-         'idUser': user.idUser,
+   Future <void> editUser(Users user) async {
+       await db.collection("users").document(user.idUser).updateData({
          'name': user.name,
          'phone': user.phone,
+       }).then((documentReference){
+         print("Los datos fueron actualizados");
+       }).catchError((e){
+         print(e);
        });
     }
   
-    Future<void> deleteUser(Users users) async {
-      db.collection("users").document(users.idUser).delete();
+    Future<void> deleteUser(DocumentSnapshot doc) async {
+      db.collection("users").document(doc.documentID).delete();
     }
 
    getUsers() async {

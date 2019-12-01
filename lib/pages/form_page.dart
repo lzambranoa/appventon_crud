@@ -122,7 +122,7 @@ class _FormPageState extends State<FormPage> {
     print(user.name);
     print(user.phone);
 
-    usuarioProvider.addUser(user, cars);
+    usuarioProvider.addUser(user);
   
 
     Navigator.pushReplacementNamed(context, 'car');

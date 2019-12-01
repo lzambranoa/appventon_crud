@@ -1,6 +1,7 @@
 import 'package:appventon/models/carModel.dart';
 import 'package:appventon/models/userModel.dart';
 import 'package:appventon/providers/car_provider.dart';
+import 'package:appventon/providers/user_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,9 @@ class _CarPageState extends State<CarPage> {
 
     final formKey = GlobalKey<FormState>();
     final carProvider = new CarProvider();
+    final userProvider = new UserProvider();
     final db = Firestore.instance;
-    Cars car = new Cars();
+    Cars cars = new Cars();
     Users user = new Users();
 
   @override
@@ -50,7 +52,7 @@ class _CarPageState extends State<CarPage> {
        decoration: InputDecoration( 
          labelText: 'Marca'
        ),
-       onSaved: (value) => car.brand = int.parse(value),
+       onSaved: (value) => cars.brand = int.parse(value),
      ),
    );
  }
@@ -61,7 +63,7 @@ class _CarPageState extends State<CarPage> {
        decoration: InputDecoration( 
          labelText: 'Modelo'
        ),
-onSaved: (value) => car.model = int.parse(value),
+onSaved: (value) => cars.model = int.parse(value),
      ),
    );
  }
@@ -72,7 +74,7 @@ onSaved: (value) => car.model = int.parse(value),
        decoration: InputDecoration( 
          labelText: 'Placa'
        ),
-      onSaved: (value) => car.plate = value,
+      onSaved: (value) => cars.plate = value,
      ),
    );
  }
@@ -83,7 +85,7 @@ onSaved: (value) => car.model = int.parse(value),
        decoration: InputDecoration( 
          labelText: 'Year'
        ),
-       onSaved: (value) => car.year = int.parse(value),
+       onSaved: (value) => cars.year = int.parse(value),
      ),
    );
  }
@@ -107,12 +109,12 @@ onSaved: (value) => car.model = int.parse(value),
 
     formKey.currentState.save();
 
-    print(car.brand);
-    print(car.model);
-    print(car.plate);
-    print(car.year);
+    print(cars.brand);
+    print(cars.model);
+    print(cars.plate);
+    print(cars.year);
 
-   carProvider.addCar(car, user);
+   userProvider.updateCarData(cars);
 
    Navigator.pushReplacementNamed(context, 'user');
     

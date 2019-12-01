@@ -13,6 +13,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
 
   QuerySnapshot usuarios;
+  DocumentSnapshot doc;
   final usuarioProvider = new UserProvider();
   Users users = new Users();
 
@@ -79,7 +80,7 @@ class _UserPageState extends State<UserPage> {
 
 _delete(BuildContext context)async {
 
-  await usuarioProvider.deleteUser(users);
+  await usuarioProvider.deleteUser(doc);
 
 }
 }
