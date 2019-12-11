@@ -16,6 +16,9 @@ class _UserPageState extends State<UserPage> {
   DocumentSnapshot doc;
   final usuarioProvider = new UserProvider();
   Users users = new Users();
+  bool isUpdate = false;
+  String docId;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,11 @@ class _UserPageState extends State<UserPage> {
                 IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: (){
-                    Navigator.pushNamed(context, 'edit');
+                    setState(() {
+                      docId = doc.documentID;
+                      isUpdate = true;
+                      Navigator.pushNamed(context, 'edit');
+                    });
                   },
                 ),
                 IconButton(
@@ -78,9 +85,9 @@ class _UserPageState extends State<UserPage> {
   
 }
 
-_delete(BuildContext context)async {
+_delete(BuildContext context) {
 
-  await usuarioProvider.deleteUser(doc);
+   usuarioProvider.deleteUser(doc);
 
 }
 }

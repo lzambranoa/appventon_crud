@@ -1,12 +1,17 @@
 import 'package:appventon/models/travelModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+
 class TravelProvider {
 
   final db = Firestore.instance;
+  Travels travels = Travels();
+  final List <QuerySnapshot> querySnapshot = List();
+  final List<Travels> travel = List();
 
 
-  Future<bool> addTravel(Travels travels) async {
+  Future<bool> addTravel() async {
     await db.collection('travels').add({
       'startPoint': travels.startPoint,
       'endPoint': travels.endPoint,
@@ -25,9 +30,10 @@ class TravelProvider {
     return true;
   }
 
-  Future showTravel(Travels travels) async {
+  Future<List<Travels>> showTravel() async {
+
     await db.collection('travels').where(
-      'date', isEqualTo: travels.date 
+      'date', isEqualTo: travels.date
     ).where(
       'huor', isEqualTo: travels.huor
     ).where(
@@ -35,16 +41,17 @@ class TravelProvider {
     ).where(
       'endPoint', isEqualTo: travels.endPoint
     ).getDocuments()
-    .then((querySnapshot){
-      print(querySnapshot.documents);
-    }).catchError((e){
-      print(e);
+      .then((querySnapshot) {
+        print(querySnapshot.documents);
+      }).catchError((e){
+        print(e);
+      });
 
-    });
-    
+      return travel;
   }
+  
 
-     Future<void> deleteTravels(Travels travels) async {
+     Future<void> deleteTravels() async {
       db.collection("travels").document(travels.idTravel).delete();
     }
 

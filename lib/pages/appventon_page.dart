@@ -23,7 +23,7 @@ class _AppventonPageState extends State<AppventonPage> {
   TextEditingController _controladorFecha = new TextEditingController();
   TextEditingController _controladorHora = new TextEditingController();
 
-  int _conteo = 0;
+ 
 
   // bool _noPets = false;
   // bool _noSmooke = false;
@@ -246,6 +246,8 @@ class _AppventonPageState extends State<AppventonPage> {
     print(travel.date);
     print(travel.huor);
     print(travel.price);
-    travelProvider.addTravel(travel);
+    travelProvider.addTravel();
+
+    Navigator.pushReplacementNamed(context, 'solicitar');
   }
 }

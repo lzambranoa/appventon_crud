@@ -4,7 +4,6 @@ import 'package:appventon/providers/user_provider.dart';
 //import 'package:appventon/viewmodels/CRUDmodels.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FormPage extends StatefulWidget {
   
@@ -125,7 +124,7 @@ class _FormPageState extends State<FormPage> {
     usuarioProvider.addUser(user);
   
 
-    Navigator.pushReplacementNamed(context, 'car');
+    Navigator.pushReplacementNamed(context, 'user');
   
   }
 }

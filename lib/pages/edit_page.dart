@@ -18,6 +18,11 @@ class _EditPageState extends State<EditPage> {
   
   final formKey = GlobalKey<FormState>();
   final db = Firestore.instance;
+  DocumentSnapshot doc;
+  String docId;
+  final _userNameController = TextEditingController();
+  final _userPhoneController = TextEditingController();
+  
 
   Users user = new Users();
   @override
@@ -48,6 +53,7 @@ class _EditPageState extends State<EditPage> {
        decoration: InputDecoration( 
          labelText: 'name'
        ),
+       controller: _userNameController,
        onSaved: (value) => user.name = value,
      ),
    );
@@ -60,6 +66,7 @@ class _EditPageState extends State<EditPage> {
         decoration: InputDecoration(
           labelText: 'phone'
         ),
+        controller: _userPhoneController,
         onSaved: (value) => user.phone = int.parse(value), 
       ),
     );
@@ -74,18 +81,18 @@ class _EditPageState extends State<EditPage> {
       textColor: Colors.white,
       label: Text('Edit'),
       icon: Icon(Icons.save),
-      onPressed: ()=> _editer(context) 
+      onPressed: ()=> _editer(context)
     );
   }
 
   _editer(BuildContext context) async {
 
-    formKey.currentState.save();
+   formKey.currentState.validate();   
+   formKey.currentState.save();
+   usuarioProvider.editUser();
 
     print(user.name);
     print(user.phone);
-
-    usuarioProvider.editUser(user);
   }
 
   }

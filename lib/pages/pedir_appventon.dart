@@ -149,10 +149,10 @@ class _SolicitarPageState extends State<SolicitarPage> {
   
   if(!formKey.currentState.validate()) return;
 
-  travelProvider.showTravel(travel);
+  travelProvider.showTravel();
 
-  print(travel.huor);
-  print(travel.date);
+  print(travel.startPoint);
+  print(travel.endPoint);
 
   Navigator.pushReplacementNamed(context, 'ver');
 

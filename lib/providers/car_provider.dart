@@ -20,9 +20,9 @@ class CarProvider {
     }).then((DocumentReference documentReference) {
       documentReference.get().then((DocumentSnapshot snapshot){
         //Id Car referencia al array
-        DocumentReference refUsers = db.collection("cars").document(user.idUser);
+        DocumentReference refUsers = db.collection("users").document(user.idUser);
         refUsers.setData({
-          'cars' : FieldValue.arrayUnion([db.document("$Cars/${snapshot.documentID}")])
+          'cars' : FieldValue.arrayUnion([db.document("$Users/${snapshot.documentID}")])
         });
       });
     }).catchError((e){
