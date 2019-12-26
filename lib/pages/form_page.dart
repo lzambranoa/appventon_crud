@@ -19,7 +19,7 @@ class _FormPageState extends State<FormPage> {
   final formKey = GlobalKey<FormState>();
   final db = Firestore.instance;
 
-  Users user = new Users();
+  Users users = new Users();
   Cars cars = new Cars();
 
   @override
@@ -52,11 +52,11 @@ class _FormPageState extends State<FormPage> {
    return Container(
      padding: EdgeInsets.symmetric(horizontal: 30.0),
      child: TextFormField(
-       initialValue: user.name,
+       initialValue: users.name,
        decoration: InputDecoration( 
          labelText: 'name'
        ),
-       onSaved: (value) => user.name = value,
+       onSaved: (value) => users.name = value,
      ),
    );
  }
@@ -68,7 +68,7 @@ class _FormPageState extends State<FormPage> {
         decoration: InputDecoration(
           labelText: 'phone'
         ),
-        onSaved: (value) => user.phone = int.parse(value), 
+        onSaved: (value) => users.phone = int.parse(value), 
       ),
     );
   }
@@ -118,13 +118,13 @@ class _FormPageState extends State<FormPage> {
 
     formKey.currentState.save();
 
-    print(user.name);
-    print(user.phone);
+    print(users.name);
+    print(users.phone);
 
-    usuarioProvider.addUser(user);
+    usuarioProvider.addUser(users);
   
 
-    Navigator.pushReplacementNamed(context, 'user');
+    Navigator.pushReplacementNamed(context, 'car');
   
   }
 }

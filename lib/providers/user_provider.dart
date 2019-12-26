@@ -4,26 +4,48 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appventon/models/carModel.dart';
 
 
+
 class UserProvider {
 
 
   final db = Firestore.instance;
-  final FirebaseAuth auth = FirebaseAuth.instance;
   String docId;
-  Users user;
+  Users users = Users();
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
 
 
-  Future<void> addUser(Users user) async {
-      await db.collection("users").add({
-        'idUser': user.idUser,
-        'name': user.name,
-        'phone': user.phone,
-        'cars': user.cars,  
-      }).then((documentReference) {
-        print(documentReference.documentID);
-      }).catchError((e) {
-        print(e);
+
+  // Future<void> addUser(Users user) async {
+  //     await db.collection("users").add({
+  //       'idUser': user.idUser,
+  //       'name': user.name,
+  //       'phone': user.phone,
+  //       'cars': user.cars,  
+  //     }).then((documentReference) {
+  //       print(documentReference.documentID);
+  //     }).catchError((e) {
+  //       print(e);
+  //     });
+  //   }
+
+    Future<void> addUser(Users users) async { 
+      CollectionReference refUsers = db.collection("users");
+
+      await auth.currentUser().then((FirebaseUser user){
+        refUsers.add({
+          'idUser': db.document("${user.uid}"),
+          'name': users.name,
+          'phone': users.phone,
+
+        }).then((DocumentReference documentReference) {
+          documentReference.get().then((DocumentSnapshot snapshot){
+            DocumentReference refCars = db.collection("users").document("${user.uid}");
+            refCars.updateData({
+              'users': FieldValue.arrayUnion([db.document("${user.uid}")])
+            });
+          });
+        });
       });
     }
 
@@ -40,7 +62,7 @@ class UserProvider {
         }).then((DocumentReference documentReference){
           documentReference.get().then((DocumentSnapshot snapshot){
             //Id Cars REFRENCIA ARRAYS
-            DocumentReference refUsers = db.collection("users").document(user.uid);
+            DocumentReference refUsers = db.collection("users").document("${user.uid}");
             refUsers.updateData({
               'cars' : FieldValue.arrayUnion([db.document("${"cars"}/${snapshot.documentID}")])
             });
@@ -51,8 +73,8 @@ class UserProvider {
   
    Future <void> editUser() async {
           await db.collection("users").document(docId).updateData({
-         'name': user.name,
-         'phone': user.phone,
+         'name': users.name,
+         'phone': users.phone,
        }).then((documentReference){
          print("Los datos fueron actualizados");
        }).catchError((e){
@@ -67,11 +89,5 @@ class UserProvider {
    getUsers() async {
      return await Firestore.instance.collection('users').getDocuments();
    }
-
-
-
-
-  
-    
   }
   
